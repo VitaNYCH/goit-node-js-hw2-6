@@ -44,7 +44,65 @@ async function updateById(id, { name, email, phone }) {
   if (index === -1) {
     return null;
   }
-  contacts[index] = { id, ...{ name, email, phone } };
+  console.log(contacts[index].email);
+
+  if (name === undefined && email === undefined) {
+    contacts[index] = {
+      id,
+      ...{
+        name: contacts[index].name,
+        email: contacts[index].email,
+        phone,
+      },
+    };
+  } else if (name === undefined && phone == undefined) {
+    contacts[index] = {
+      id,
+      ...{
+        name: contacts[index].name,
+        email,
+        phone: contacts[index].phone,
+      },
+    };
+  } else if (phone === undefined && email === undefined) {
+    contacts[index] = {
+      id,
+      ...{
+        name,
+        email: contacts[index].email,
+        phone: contacts[index].phone,
+      },
+    };
+  } else if (phone === undefined) {
+    contacts[index] = {
+      id,
+      ...{
+        name,
+        email,
+        phone: contacts[index].phone,
+      },
+    };
+  } else if (name === undefined) {
+    contacts[index] = {
+      id,
+      ...{
+        name: contacts[index].name,
+        email,
+        phone,
+      },
+    };
+  } else if (email === undefined) {
+    contacts[index] = {
+      id,
+      ...{
+        name,
+        email: contacts[index].email,
+        phone,
+      },
+    };
+  }
+
+  console.log(contacts[index]);
   await fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
   return contacts[index];
 }
