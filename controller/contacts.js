@@ -32,7 +32,9 @@ const removeContact = async (req, res) => {
 
 const updateById = async (req, res) => {
   const { id } = req.params;
+
   const result = await contacts.updateById(id, req.body);
+
   if (!result) {
     throw HttpError(400, error.message);
   }
